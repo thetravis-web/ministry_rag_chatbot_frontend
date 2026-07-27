@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Roles &amp; Permissions - Ministry Offline RAG Chatbot{% endblock %}
+{% block title %}Roles &amp; Permissions â€” Ministry Offline RAG Chatbot{% endblock %}
 
 {% block content %}
 <div class="page-shell">
@@ -13,12 +13,12 @@
       </thead>
       <tbody>
         {% for r in roles %}
-        <tr data-role-id="{{ r.id }}">
+        <tr>
           <td><span class="role-chip">{{ r.name }}</span></td>
-          <td><input type="checkbox" data-permission="ask" {{ 'checked' if r.ask else '' }} /></td>
-          <td><input type="checkbox" data-permission="docs" {{ 'checked' if r.docs else '' }} /></td>
-          <td><input type="checkbox" data-permission="users" {{ 'checked' if r.users else '' }} /></td>
-          <td><input type="checkbox" data-permission="maintenance" {{ 'checked' if r.maintenance else '' }} /></td>
+          <td>{{ 'âœ“' if r.ask else 'â€”' }}</td>
+          <td>{{ 'âœ“' if r.docs else 'â€”' }}</td>
+          <td>{{ 'âœ“' if r.users else 'â€”' }}</td>
+          <td>{{ 'âœ“' if r.maintenance else 'â€”' }}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -33,15 +33,9 @@
         <span class="avatar" data-avatar-name="{{ u.name }}" style="width:28px;height:28px;font-size:11px;"></span>
         {{ u.name }}
       </span>
-      <select class="field-input user-role-select" data-user-id="{{ u.id }}" style="max-width:260px;">
-        {% for r in roles %}
-        <option value="{{ r.name }}" {{ 'selected' if r.name == u.role else '' }}>{{ r.name }}</option>
-        {% endfor %}
-      </select>
+      <span class="role-chip">{{ u.role }}</span>
     </div>
     {% endfor %}
   </div>
 </div>
 {% endblock %}
-
-{% block extra_scripts %}<script src="/static/js/admin.js"></script>{% endblock %}

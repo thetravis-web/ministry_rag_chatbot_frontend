@@ -53,7 +53,6 @@ async function handleFiles(fileList) {
     try {
       const res = await fetch("/api/upload", { method: "POST", body: fd });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.detail || "Upload failed");
       clearInterval(tick);
       bar.style.width = "100%";
       meta.textContent = `${humanFileSize(file.size)} · ${data.status} · ${data.chunks} chunks embedded`;
