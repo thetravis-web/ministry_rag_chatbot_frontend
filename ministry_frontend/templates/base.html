@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{% block title %}Ministry of ICT and National Guidance — Offline RAG Chatbot{% endblock %}</title>
+<link rel="icon" href="/static/img/ministry_logo.png" />
+<link rel="stylesheet" href="/static/css/style.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" />
+{% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<header class="app-header">
+  <div class="brand">
+    <img src="/static/img/ministry_logo.png" alt="Ministry of ICT and National Guidance logo" />
+    <div class="brand-text">
+      <span class="name">MINISTRY OF ICT</span>
+      <span class="sub">National Guidance — Offline RAG Chatbot</span>
+    </div>
+  </div>
+
+  <nav class="main-nav">
+    {% for item in nav_items %}
+      <a href="{{ item.href }}" class="{{ 'active' if item.active else '' }}">{{ item.label }}</a>
+    {% endfor %}
+  </nav>
+
+  <div class="header-actions">
+    <span class="status-pill"><span class="dot"></span> Offline · Secure</span>
+    {% block header_actions %}{% endblock %}
+    {% if user_name %}<a href="/logout" class="btn btn-outline btn-sm">Logout</a>{% endif %}
+  </div>
+</header>
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="app-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="brand" style="margin-bottom:8px;">
+        <img src="/static/img/ministry_logo.png" alt="Ministry logo" style="height:32px;" />
+      </div>
+      <p style="max-width:280px;color:#cfd8e3;">The official offline intelligence assistant of the Ministry of ICT &amp; National Guidance, Uganda.</p>
+      <span class="badge" style="background:rgba(255,255,255,0.12);color:#fff;">Data Protection &amp; Privacy Act 2019 Compliant</span>
+    </div>
+    <div>
+      <strong>Resources</strong><br/>
+      <a href="#">ICT Policy</a><br/>
+      <a href="#">E-Gov Services</a><br/>
+      <a href="https://edocs.go.ug" target="_blank" rel="noopener">eDocs+ (EDRMS)</a>
+    </div>
+    <div>
+      <strong>Support</strong><br/>
+      <a href="#">Contact System Administrator</a><br/>
+      <a href="#">Report an Issue</a><br/>
+      <a href="#">FAQ</a>
+    </div>
+    <div>
+      <strong>Follow the Ministry</strong>
+      <div class="socials">
+        <a href="https://twitter.com/MoICT_Ug" target="_blank" rel="noopener" aria-label="X (Twitter)">X</a>
+        <a href="https://www.facebook.com/MoICT.Ug" target="_blank" rel="noopener" aria-label="Facebook">Facebook</a>
+      </div>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:20px;color:#8fa0b8;">© 2026 Ministry of ICT &amp; National Guidance, Uganda. All Rights Reserved.</p>
+</footer>
+
+<script src="/static/js/main.js"></script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

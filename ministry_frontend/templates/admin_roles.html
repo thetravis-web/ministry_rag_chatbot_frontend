@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Roles &amp; Permissions - Ministry Offline RAG Chatbot{% endblock %}
+
+{% block content %}
+<div class="page-shell">
+  <h1>Roles &amp; Permissions</h1>
+  <p style="color:var(--color-text-secondary);">Manage which system functions each role can access, per the RBAC model in the Class Diagram.</p>
+
+  <div class="card">
+    <table class="table">
+      <thead>
+        <tr><th>Role</th><th>Ask &amp; Search</th><th>Upload / Manage Docs</th><th>Manage Users</th><th>System Maintenance</th></tr>
+      </thead>
+      <tbody>
+        {% for r in roles %}
+        <tr data-role-id="{{ r.id }}">
+          <td><span class="role-chip">{{ r.name }}</span></td>
+          <td><input type="checkbox" data-permission="ask" {{ 'checked' if r.ask else '' }} /></td>
+          <td><input type="checkbox" data-permission="docs" {{ 'checked' if r.docs else '' }} /></td>
+          <td><input type="checkbox" data-permission="users" {{ 'checked' if r.users else '' }} /></td>
+          <td><input type="checkbox" data-permission="maintenance" {{ 'checked' if r.maintenance else '' }} /></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card card-pad" style="margin-top:20px;">
+    <h3 style="margin-top:0;">Active Users</h3>
+    {% for u in users %}
+    <div class="list-row">
+      <span style="display:flex;align-items:center;gap:10px;">
+        <span class="avatar" data-avatar-name="{{ u.name }}" style="width:28px;height:28px;font-size:11px;"></span>
+        {{ u.name }}
+      </span>
+      <select class="field-input user-role-select" data-user-id="{{ u.id }}" style="max-width:260px;">
+        {% for r in roles %}
+        <option value="{{ r.name }}" {{ 'selected' if r.name == u.role else '' }}>{{ r.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}<script src="/static/js/admin.js"></script>{% endblock %}

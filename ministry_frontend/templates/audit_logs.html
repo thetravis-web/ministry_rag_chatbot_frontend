@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Audit Logs - Ministry Offline RAG Chatbot{% endblock %}
+
+{% block content %}
+<div class="page-shell">
+  <h1>Audit Logs</h1>
+  <p style="color:var(--color-text-secondary);">Every login, document change, and admin action is recorded here - backing the Audit Log entity added to the ER/Class diagrams.</p>
+
+  <form method="get" class="card card-pad" style="margin-bottom:20px;display:flex;gap:12px;flex-wrap:wrap;">
+    <select name="action" class="field-input" style="max-width:200px;">
+      <option>All actions</option>
+      {% for item in actions %}<option {{ 'selected' if selected_action == item else '' }}>{{ item }}</option>{% endfor %}
+    </select>
+    <select name="user_name" class="field-input" style="max-width:200px;">
+      <option>All users</option>
+      {% for u in users %}<option {{ 'selected' if selected_user == u.name else '' }}>{{ u.name }}</option>{% endfor %}
+    </select>
+    <input name="date" class="field-input" type="date" value="{{ selected_date }}" style="max-width:180px;" />
+    <button class="btn btn-outline btn-sm">Apply Filters</button>
+  </form>
+
+  <div class="card">
+    {% for log in logs %}
+    <div class="action-log-row">
+      <span class="material-symbols-outlined">{{ log.icon }}</span>
+      <div style="flex:1;">
+        <strong>{{ log.user }}</strong> {{ log.action }}
+      </div>
+      <span style="color:var(--color-text-muted);">{{ log.when }}</span>
+    </div>
+    {% else %}
+    <div class="action-log-row">
+      <span class="material-symbols-outlined">info</span>
+      <div style="flex:1;">No audit entries match these filters.</div>
+      <span style="color:var(--color-text-muted);">Now</span>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

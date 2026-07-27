@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Chat — Ministry Offline RAG Chatbot{% endblock %}
+{% block header_actions %}<div class="avatar" data-avatar-name="{{ user_name }}" style="width:36px;height:36px;font-size:13px;"></div>{% endblock %}
+
+{% block content %}
+<div class="chat-shell">
+  <aside class="chat-sidebar">
+    <button id="new-chat-btn" class="btn btn-primary btn-sm" style="width:100%;margin-bottom:16px;">+ New Chat</button>
+    <p style="font-size:12px;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:0.04em;">Recent</p>
+    {% for c in recent_chats %}
+    <div class="list-row" style="border:none;padding:8px 4px;cursor:pointer;">{{ c.title }}</div>
+    {% endfor %}
+  </aside>
+
+  <div class="chat-main">
+    <div id="chat-thread" class="chat-thread">
+      <div class="chat-msg chat-msg-bot">
+        <div class="chat-bubble">Hi {{ user_name.split(' ')[0] }}, ask me anything about Ministry policy, regulation, or ICT standards — I'll answer only from official documents and always show my sources.</div>
+      </div>
+    </div>
+
+    <form id="chat-form" class="chat-input-bar">
+      <input id="chat-input" type="text" placeholder="Ask about a policy, e.g. 'What does the Data Protection Act say about consent?'" autocomplete="off" />
+      <button id="chat-send-btn" type="submit" class="btn btn-primary" aria-label="Send">
+        <span class="material-symbols-outlined">send</span>
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}<script src="/static/js/chat.js"></script>{% endblock %}

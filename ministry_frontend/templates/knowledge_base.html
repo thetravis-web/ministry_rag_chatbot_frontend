@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Knowledge Base — Ministry Offline RAG Chatbot{% endblock %}
+
+{% block content %}
+<div class="page-shell">
+  <h1>Regulatory Knowledge Base</h1>
+  <p style="color:var(--color-text-secondary);">{{ doc_count }} documents indexed across {{ categories|length }} categories.</p>
+
+  <div class="kb-layout">
+    <div class="card card-pad" style="height:fit-content;">
+      <h4 style="margin-top:0;">Categories</h4>
+      <a href="/knowledge-base" class="kb-category {{ 'active' if selected_category == 'All' else '' }}">
+        <span>All</span>
+        <span style="color:var(--color-text-muted);">{{ doc_count }}</span>
+      </a>
+      {% for cat in categories %}
+      <a href="/knowledge-base?category={{ cat|urlencode }}" class="kb-category {{ 'active' if selected_category == cat else '' }}">
+        <span>{{ cat }}</span>
+        <span style="color:var(--color-text-muted);">{{ category_counts[cat] }}</span>
+      </a>
+      {% endfor %}
+    </div>
+
+    <div class="card">
+      {% for doc in documents %}
+      <div class="doc-row">
+        <span class="material-symbols-outlined">description</span>
+        <div style="flex:1;">
+          <div class="doc-title">{{ doc.title }}</div>
+          <div class="doc-meta">{{ doc.category }} · uploaded {{ doc.uploaded }} · {{ doc.chunks }} chunks</div>
+        </div>
+        {% if doc.downloadable %}
+        <a href="/documents/{{ doc.id }}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">View</a>
+        {% else %}
+        <button class="btn btn-outline btn-sm" disabled>Seeded</button>
+        {% endif %}
+      </div>
+      {% else %}
+      <div class="doc-row">
+        <span class="material-symbols-outlined">info</span>
+        <div style="flex:1;">
+          <div class="doc-title">No documents in this category yet</div>
+          <div class="doc-meta">Upload a document to make it searchable by {{ chatbot_name }}.</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

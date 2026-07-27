@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Ministry of ICT — Offline RAG Chatbot{% endblock %}
+{% block header_actions %}<a href="/login" class="btn btn-primary btn-sm">Staff Access</a>{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span class="badge">Offline RAG Architecture</span>
+      <h1>Secure Intelligence for <span class="accent">National Guidance.</span></h1>
+      <p>An offline, RAG-powered AI assistant for the Ministry of ICT and National Guidance — built to streamline regulatory compliance and policy retrieval, entirely on Ministry infrastructure.</p>
+      <div class="hero-actions">
+        <a href="/login" class="btn btn-primary">Staff Access →</a>
+        <a href="#features" class="btn btn-outline">See how it works</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <img src="/static/img/ministry_hero.jpg" alt="Ministry of ICT and National Guidance leadership" />
+    </div>
+  </div>
+</section>
+
+<section id="features" class="feature-grid">
+  <div class="card feature-card">
+    <div class="icon"><span class="material-symbols-outlined">search</span></div>
+    <h3>Instant Policy Retrieval</h3>
+    <p>Search thousands of regulations in seconds. Semantic search understands intent, not just keywords.</p>
+  </div>
+  <div class="card feature-card">
+    <div class="icon"><span class="material-symbols-outlined">fact_check</span></div>
+    <h3>Verified Citations</h3>
+    <p>Every answer is backed by the official document, page, and section it came from — never a guess.</p>
+  </div>
+  <div class="card feature-card">
+    <div class="icon"><span class="material-symbols-outlined">lock</span></div>
+    <h3>100% Offline &amp; Secure</h3>
+    <p>Zero data leakage. All processing happens within the Ministry's own infrastructure.</p>
+  </div>
+</section>
+
+<section class="page-shell" style="text-align:center;">
+  <div class="card card-pad">
+    <h2 style="margin-top:0;">Ready to streamline ICT policy work?</h2>
+    <p style="color:var(--color-text-secondary);">Authorized personnel can access the chatbot using their Ministry credentials.</p>
+    <a href="/login" class="btn btn-primary">Sign In to Portal</a>
+  </div>
+</section>
+{% endblock %}

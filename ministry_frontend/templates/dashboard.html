@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Ministry Offline RAG Chatbot{% endblock %}
+{% block header_actions %}<div class="avatar" data-avatar-name="{{ user_name }}" style="width:36px;height:36px;font-size:13px;"></div>{% endblock %}
+
+{% block content %}
+<div class="page-shell">
+  <h1 style="margin-bottom:4px;">Welcome back, {{ user_name.split(' ')[0] }}</h1>
+  <p style="color:var(--color-text-secondary);margin-top:0;">{{ user_role }} · here's what's happening today.</p>
+
+  <div class="quick-actions">
+    <a href="/chat" class="card quick-action">
+      <span class="material-symbols-outlined">chat</span>
+      <h4>New Chat</h4>
+      <p>Ask a question about any Ministry policy or regulation.</p>
+    </a>
+    <a href="/knowledge-base" class="card quick-action">
+      <span class="material-symbols-outlined">library_books</span>
+      <h4>Browse Knowledge Base</h4>
+      <p>Explore documents by category.</p>
+    </a>
+    {% if can_upload %}
+    <a href="/upload" class="card quick-action">
+      <span class="material-symbols-outlined">upload_file</span>
+      <h4>Upload Document</h4>
+      <p>Add a new document to the knowledge base.</p>
+    </a>
+    {% else %}
+    <div class="card quick-action" style="opacity:0.55;">
+      <span class="material-symbols-outlined">lock</span>
+      <h4>Upload Document</h4>
+      <p>Restricted to Admins &amp; KM Officers.</p>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="dash-grid">
+    <div class="card card-pad">
+      <h3 style="margin-top:0;">Recent Conversations</h3>
+      {% for c in recent_chats %}
+      <div class="list-row">
+        <span>{{ c.title }}</span>
+        <span style="color:var(--color-text-muted);">{{ c.when }}</span>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="card card-pad">
+      <h3 style="margin-top:0;">System Health</h3>
+      <div class="health-metric"><span>LLM Runtime (Ollama)</span><span class="value">Online</span></div>
+      <div class="health-metric"><span>Vector Store (ChromaDB)</span><span class="value">Online</span></div>
+      <div class="health-metric"><span>Documents Indexed</span><span class="value">{{ doc_count }}</span></div>
+      <h3>Pinned Documents</h3>
+      {% for d in pinned_docs %}
+      <div class="pinned-doc"><span class="material-symbols-outlined" style="font-size:18px;color:var(--color-primary);">description</span>{{ d }}</div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
